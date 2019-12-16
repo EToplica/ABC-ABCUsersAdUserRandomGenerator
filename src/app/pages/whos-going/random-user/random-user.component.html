@@ -1,0 +1,22 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+
+    <div class="person">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+<!--        <mat-form-field fxFlex appearance="outline">-->
+<!--          <mat-label>Name</mat-label>-->
+<!--          <h1 class="mat-display-1">{{randomUser}}</h1>-->
+<!--        </mat-form-field>-->
+        <section class="mat-typography">
+          <h1>The random user to go to the shopping is:  <span style="color:royalblue">{{randomUser}}</span></h1>
+        </section>
+      </div>
+
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button mat-button (click)="tryAgain()" style="margin-right:10px;">Try Again</button>
+    <button mat-button (click)="cancel()" style="margin-right:10px;">Cancel</button>
+  </mat-dialog-actions>
+</form>
+

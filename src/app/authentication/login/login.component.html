@@ -1,0 +1,35 @@
+<div class="page background-pattern" fxLayout="column" fxLayoutAlign="center center">
+  <div [@fadeInUp] class="card border-radius elevation">
+    <div class="header padding" fxLayout="column" fxLayoutAlign="center center" style="background-color:#a4ce57" >
+      <div class="fill-primary">
+        <img src="./assets/img/logo-line.png" height="45" alt="">
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <form [formGroup]="form" (submit)="login()">
+      <div class="padding" fxLayout="column" fxLayoutGap="16px">
+        <div fxFlex="auto" fxLayout="column">
+          <mat-form-field fxFlex="grow">
+            <mat-label>E-Mail</mat-label>
+            <input matInput required formControlName="email">
+            <mat-error *ngIf="form.get('email').hasError('required')">We need an email address to log you in</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="grow">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="inputType" formControlName="password" required>
+            <button type="button" mat-icon-button matSuffix (click)="toggleVisibility()" matTooltip="Toggle Visibility">
+              <mat-icon *ngIf="visible">visibility</mat-icon>
+              <mat-icon *ngIf="!visible">visibility_off</mat-icon>
+            </button>
+            <mat-hint>Click the eye to toggle visibility</mat-hint>
+            <mat-error *ngIf="form.get('password').hasError('required')">We need a password to log you in</mat-error>
+          </mat-form-field>
+        </div>
+        <button *ngIf="false" type="submit" class="snaffle-background-color mt-25" mat-raised-button>
+          SIGN IN
+        </button>
+        <mat-spinner-button class="mt-25" type="submit" [options]="loginButton"></mat-spinner-button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>
+  What I want from the market?
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-dialog-content>
+
+    <div class="person">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>I want</mat-label>
+          <input type="text" formControlName="name" matInput>
+        </mat-form-field>
+
+        <mat-form-field fxFlex appearance="outline">
+          <mat-label>Money</mat-label>
+          <input type="text" formControlName="money" matInput>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+   <button mat-button (click)="cancel()" style="margin-right:10px;">Cancel</button>
+    <mat-spinner-button [options]="saveButton"></mat-spinner-button>
+  </mat-dialog-actions>
+</form>

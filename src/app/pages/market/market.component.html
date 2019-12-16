@@ -1,0 +1,74 @@
+<fury-page-layout mode="card">
+  <fury-page-layout-header>
+    <fury-breadcrumbs [@fadeInRight] current="Market"></fury-breadcrumbs>
+  </fury-page-layout-header>
+
+  <fury-page-layout-content [@fadeInUp]>
+    <fury-list [name]="'Market - ' + (today | date: 'dd/MM/yyyy')" [columns]="columns">
+<!--    <fury-list [name]="'Market - '" [columns]="columns">-->
+      <div class="actions">
+        <button class="create" (click)="createMarketItem()" type="button" mat-mini-fab color="primary">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <table [dataSource]="marketItems" mat-table matSort>
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- User name Column -->
+        <ng-container matColumnDef="email">
+          <th *matHeaderCellDef mat-header-cell>NAME</th>
+          <td *matCellDef="let row" mat-cell >
+          {{row.email}}
+          </td>
+        </ng-container>
+        <!-- Money Column -->
+        <ng-container matColumnDef="money">
+          <th *matHeaderCellDef mat-header-cell>MONEY</th>
+          <td *matCellDef="let row" mat-cell>
+            {{row.money | number : '1.2' }} EUR
+          </td>
+        </ng-container>
+        <!-- Others Column -->
+        <ng-container *ngFor="let column of columns">
+          <ng-container *ngIf="column.isModelProperty" [matColumnDef]="column.property">
+            <th *matHeaderCellDef mat-header-cell> {{ column.name }}</th>
+            <td *matCellDef="let row" mat-cell>
+              {{ row[column.property] }}
+            </td>
+          </ng-container>
+        </ng-container>
+
+
+        <!-- actions Column -->
+        <ng-container matColumnDef="actions">
+          <th *matHeaderCellDef class="actions-cell" mat-header-cell mat-sort-header></th>
+          <td *matCellDef="let row" class="actions-cell" mat-cell>
+            <button type="button" mat-icon-button [matMenuTriggerFor]="actionsMenu" (click)="$event.stopPropagation()" *ngIf="userId == row.userId">
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+
+            <mat-menu #actionsMenu="matMenu" yPosition="below" xPosition="before">
+              <button mat-menu-item (click)="updateMarketItem(row)">
+                <span>Modify</span>
+              </button>
+              <button mat-menu-item (click)="deleteMarketItem(row.id)">
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+        <tr
+            *matRowDef="let row; columns: visibleColumns;"
+            class="route-animations-elements"
+            mat-row></tr>
+      </table>
+      <div class="no-records-container" *ngIf="marketItems.length === 0">No records found.</div>
+    </fury-list>
+
+  </fury-page-layout-content>
+</fury-page-layout>
